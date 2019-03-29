@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+}
+
+/* .note-text {
+  border: 0px
+} */
+
+.note-text:focus{
+  outline: none;
+}
