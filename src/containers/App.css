@@ -2,9 +2,11 @@
   text-align: center;
 }
 
-/* .note-text {
-  border: 0px
-} */
+.note-text {
+  /* border: 0px; */
+  /* height: 50px; */
+  width: 250px;
+}
 
 .note-text:focus{
   outline: none;
