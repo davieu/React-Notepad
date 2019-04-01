@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Note from '../components/Notes/Note/note';
 import NotesList from '../components/Notes/NotesList';
+import NotesField from '../components/notesField'
 
 let moment = require('moment');
 let uniqid = require('uniqid');
@@ -43,6 +44,8 @@ class App extends Component {
     let indexSelected = this.state.notes.findIndex(note => {
       return note.id === noteID;
     })
+    console.log('selectedNoteID__Helper ', indexSelected)
+    // console.log(indexSelected)
     return indexSelected;
   };
 
@@ -61,24 +64,22 @@ class App extends Component {
   //   console.log(noteIndex)
   // };
 
+  selectNoteForInput = (noteID) => {
+    let noteIndex = this.selectedNoteID__Helper(noteID);
+    this.setState({
+      currentlySelectedIndex: noteIndex
+    })
+
+    console.log(noteID)
+  };
+
   // selectNoteForInput = (noteID) => {
   //   let noteIndex = this.selectedNoteID__Helper(noteID);
   //   this.setState({
   //     currentlySelectedIndex: noteIndex
   //   })
-
-  //       const copyNote = {
-  //     ...this.state.notes[noteIndex]
-  //   };
-
-  //   copyNote.note = event.target.value;
-
-  //   const copyNotes = [...this.state.notes];
-  //   copyNotes[noteIndex] = copyNote;
-
-  //   this.setState({ notes: copyNotes })
-  //   console.log(noteIndex)
-  //   console.log(noteIndex)
+    
+  //   console.log(noteID)
   // };
 
   deleteNoteFromList = (noteID) => {
@@ -89,27 +90,44 @@ class App extends Component {
     // }
     const copyNotes = [...this.state.notes];
     let noteIndex = this.selectedNoteID__Helper(noteID);
+    let notesLength = this.state.notes.length
+    let length = 1
 
-    if (noteIndex == 0 || this.state.notes.length == 1 ) {
-      // this.setState({ currentlySelectedIndex: 0})
+    if (noteIndex == 0 && notesLength > 1) {
+      copyNotes.splice(noteIndex, 1);
+
+      this.setState({ notes: copyNotes });
+      this.setState({ currentlySelectedIndex: noteIndex - 1 })
+      // let nextUpAfterDelete = noteIndex + 1
+      
+      this.setState({ currentlySelectedIndex: 0})
+      console.log('1')
+        
+    }else if (noteIndex == 0) {
+      this.setState({ currentlySelectedIndex: 0})
       this.setState({
         id: uniqid(),
         note: 'newly deleted',
         dateCreated: moment().format('L')
+        
       })
+      console.log('2')
 
       this.setState({ currentlySelectedIndex: 0})
-    } else {
+      console.log('uo')
+    }else {
       copyNotes.splice(noteIndex, 1);
 
-    this.setState({ notes: copyNotes });
-    this.setState({ currentlySelectedIndex: noteIndex - 1 })
+      this.setState({ notes: copyNotes });
+      this.setState({ currentlySelectedIndex: noteIndex - 1 })
+      let nextUpAfterDelete = noteIndex - 1
+      
+      this.setState({ currentlySelectedIndex: nextUpAfterDelete})
+      console.log('3')
     } 
 
-    console.log('index ', noteIndex)
-    let nextUpAfterDelete = noteIndex - 1
+    // console.log('index ', noteIndex)
     
-    this.setState({ currentlySelectedIndex: nextUpAfterDelete})
 
 
 
@@ -135,8 +153,9 @@ class App extends Component {
     //   return <button key={el.id}>{el.note}  {el.created} {el.id}</button>
     // })
     console.log(this.state)
+    console.log(this.state.notes.length)
     // console.log(this.state.notes.length)
-    console.log(this.state.notes)
+    // console.log(this.state.notes)
 
     return (
       <div className="App">
@@ -145,6 +164,7 @@ class App extends Component {
           <button onClick={this.addNewNote} className="add-Note">Add Note</button>
           <button onClick={this.isNoteListShowing} className="hide-list">{this.state.noteListShowing ? 'Hide' : 'Show'}</button>
         </div>
+        <NotesField notes={this.state.notes} selected={this.state.currentlySelectedIndex}/>
         {/* <input type="text" className="note-text" onChange={this.selectNoteForInput} value={this.state.currentNote}/> */}
         {/* <input type="text" className="note-text" value={this.state.notes[this.state.currentlySelectedIndex].note}/> */}
         {noteList}
