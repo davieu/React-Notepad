@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
-import Note from '../components/Notes/Note/note';
 import NotesList from '../components/Notes/NotesList';
-import NotesField from '../components/notesField'
 
 let moment = require('moment');
 let uniqid = require('uniqid');
-var randomWords = require('random-words');
+let randomWords = require('random-words');
 
 
 class App extends Component {
   state = {
-    notes: [{id: uniqid(), note: `test1 ${randomWords({exactly: 4, join: ' '})}`, dateCreated: moment().format('L')}, {id: uniqid(), note: `test2 ${randomWords({exactly: 4, join: ' '})}`, dateCreated: moment().format('L')}],
+    notes: [
+      {id: uniqid(), note: `test1 ${randomWords({exactly: 4, join: ' '})}`, dateCreated: moment().format('L')}, {id: uniqid(), note: `test2 ${randomWords({exactly: 4, join: ' '})}`, dateCreated: moment().format('L')}
+    ],
     noteListShowing: true,
     currentNote: '',
     currentlySelectedIndex: 0
@@ -39,58 +39,45 @@ class App extends Component {
     });
   };
 
+
   //helper function for finding the selected note id/index
   selectedNoteID__Helper = (noteID) => {
     let indexSelected = this.state.notes.findIndex(note => {
       return note.id === noteID;
     })
-    console.log('selectedNoteID__Helper Index', indexSelected)
-    console.log('selectedNoteID__Helper ID', noteID)
+    // console.log('selectedNoteID__Helper Index', indexSelected)
+    // console.log('selectedNoteID__Helper ID', noteID)
     return indexSelected;
   };
 
-  // selectNoteForInput = (event, noteID) => {
-  //   let noteIndex = this.selectedNoteID__Helper(noteID);
-    // const copyNote = {
-    //   ...this.state.notes[noteIndex]
-    // };
 
-    // copyNote.note = event.target.value;
-
-    // const copyNotes = [...this.state.notes];
-    // copyNotes[noteIndex] = copyNote;
-
-    // this.setState({ notes: copyNotes })
-    // console.log(noteIndex)
-  // };
-
+  //helper function for getting currently selected note from the notestab
   selectNoteForInput = (noteID) => {
     let noteIndex = this.selectedNoteID__Helper(noteID);
     this.setState({
       currentlySelectedIndex: noteIndex
     })
-//---------------------------------
-    // const copyNote = {
-    //   ...this.state.notes[noteIndex]
-    // };
+    console.log(noteID)
+    console.log(noteIndex)
+  }
 
-    // copyNote.note = event.target.value;
 
-    // const copyNotes = [...this.state.notes];
-    // copyNotes[noteIndex] = copyNote;
+  //edit a note and saving to state onchange
+  changeNote = (event, noteID) => {
+    let noteIndex = this.selectedNoteID__Helper(noteID);
+    const copyNote = {
+      ...this.state.notes[noteIndex]
+    };
 
-    // this.setState({ notes: copyNotes })
+    copyNote.note = event.target.value;
+    const copyNotes = [...this.state.notes];
+
+    copyNotes[noteIndex] = copyNote;
+    this.setState({ notes: copyNotes })
   };
 
-  // selectNoteForInput = (noteID) => {
-  //   let noteIndex = this.selectedNoteID__Helper(noteID);
-  //   this.setState({
-  //     currentlySelectedIndex: noteIndex
-  //   })
-    
-  //   console.log(noteID)
-  // };
 
+  //deletes a note off the noteslist
   deleteNoteFromList = (noteID) => {
     console.log('length ', this.state.notes.length)
 
@@ -107,14 +94,9 @@ class App extends Component {
 
     //if it is the last remaining note then clear the note and apply new date created and id
     } else if (noteIndex == 0) {
+
+      this.setState({ notes: [{id: uniqid(), note: 'newly deleted', dateCreated: moment().format('L')}]})
       this.setState({ currentlySelectedIndex: 0})
-      this.setState({
-        id: uniqid(),
-        note: 'newly deleted',
-        dateCreated: moment().format('L')
-      })
-      this.setState({ currentlySelectedIndex: 0})
-    
     //if it is not the first note then just delete note targeted and set the next targeted note as the one above.
     } else {
       copyNotes.splice(noteIndex, 1);
@@ -124,19 +106,29 @@ class App extends Component {
     } 
   };
 
+
   render() {
     let noteList = null;
 
     //toggle for showing the notes
     if (this.state.noteListShowing) {
-      noteList = <NotesList 
-        changed={this.selectNoteForInput}
-        notes={this.state.notes}
-        clickDelete={this.deleteNoteFromList}
-        currentlySelected={this.state.currentlySelectedIndex}/>;
+      noteList = (
+        <div>
+          <NotesList 
+            changed={this.selectNoteForInput}
+            changeNote={this.changeNote}
+            notes={this.state.notes}
+            stateObj={this.state}
+            clickDelete={this.deleteNoteFromList}
+            currentlySelected={this.state.currentlySelectedIndex}
+            selected={this.state.currentlySelectedIndex}
+            test={'dsfdfgdga'}/>
+        </div>
+      )
     };
 
     console.log(this.state)
+    console.log('notes ', this.state.notes)
 
     return (
       <div className="App">
@@ -145,9 +137,6 @@ class App extends Component {
           <button onClick={this.addNewNote} className="add-Note">Add Note</button>
           <button onClick={this.isNoteListShowing} className="hide-list">{this.state.noteListShowing ? 'Hide' : 'Show'}</button>
         </div>
-        <NotesField notes={this.state.notes} selected={this.state.currentlySelectedIndex} />
-        {/* <input type="text" className="note-text" onChange={this.selectNoteForInput} value={this.state.currentNote}/> */}
-        {/* <input type="text" className="note-text" value={this.state.notes[this.state.currentlySelectedIndex].note}/> */}
         {noteList}
       </div>
     );
