@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import NotesList from '../components/Notes/NotesList';
+import NoteInput from '../components/NoteInput';
+import noteInput from '../components/NoteInput';
 
 let moment = require('moment');
 let uniqid = require('uniqid');
@@ -125,7 +127,11 @@ class App extends Component {
             test={'dsfdfgdga'}/>
         </div>
       )
-    };
+    } else {
+      noteList = (
+        <NoteInput notes={this.state.notes} currentlySelected={this.state.currentlySelectedIndex} changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
+      )
+    }
 
     console.log(this.state)
     console.log('notes ', this.state.notes)
@@ -138,6 +144,9 @@ class App extends Component {
           <button onClick={this.isNoteListShowing} className="hide-list">{this.state.noteListShowing ? 'Hide' : 'Show'}</button>
         </div>
         {noteList}
+
+
+
       </div>
     );
   }
