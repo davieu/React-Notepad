@@ -1,13 +1,53 @@
-.App {
+/* .App {
+  text-align: center;
+} */
+
+.noteInput {
+  /* border: 0px; */
+  /* height: 50px; */
+  background-color: lightgray;
+  color: red;
+  border-bottom:red;
+
+}
+
+.notesList {
+  overflow: scroll;
+  height: 500px;
+}
+
+.notesList::-webkit-scrollbar {
+  display:none !important;
+}
+
+.inputtest {
+  padding-top: 1.35em;
+}
+
+/* .noteInput:focus {
+  background-color: blue;
+} */
+
+.title {
   text-align: center;
 }
 
-.note-text {
-  /* border: 0px; */
-  /* height: 50px; */
-  width: 250px;
+/* .note-text:focus{
+  outline: none;
+} */
+
+.test {
+  background-color: lightblue;
 }
 
-.note-text:focus{
-  outline: none;
+.test:hover {
+  background-color: rgb(44, 169, 211);
+}
+
+.test:focus {
+  background-color: rgb(44, 169, 211);
+}
+
+.MuiInputBase-root-36 {
+  color: purple;
 }

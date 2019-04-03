@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import NotesList from '../components/Notes/NotesList';
 import NoteInput from '../components/NoteInput';
-import noteInput from '../components/NoteInput';
+import Test from '../components/test';
+import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
+import { TiDocumentAdd } from 'react-icons/ti';
+import { FaAngleDoubleUp, FaAngleDoubleDown, FaThList} from 'react-icons/fa';
+import DeleteButton from '../components/DeleteButton';
+
+import {Container, Row, Col }from 'react-bootstrap';
 
 let moment = require('moment');
 let uniqid = require('uniqid');
@@ -12,7 +18,7 @@ let randomWords = require('random-words');
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), note: `test1 ${randomWords({exactly: 4, join: ' '})}`, dateCreated: moment().format('L')}, {id: uniqid(), note: `test2 ${randomWords({exactly: 4, join: ' '})}`, dateCreated: moment().format('L')}
+      {id: uniqid(), note: '', dateCreated: moment().format('L')}
     ],
     noteListShowing: true,
     currentNote: '',
@@ -26,6 +32,18 @@ class App extends Component {
       noteListShowing: !isShowing
     });
   };
+
+  shortenNoteListTitle = (shorten) => {
+
+    if (shorten.length < 1) {
+        return `${shorten}...`
+      } else if (shorten.length < 21) {
+        return shorten
+      } else {
+      let shorternTitle = `${shorten.substring(0, 21)}... ` 
+      return shorternTitle
+      }
+  }
 
   //creates a new note on the list
   addNewNote = () => {
@@ -93,19 +111,23 @@ class App extends Component {
       copyNotes.splice(noteIndex, 1);
       this.setState({ notes: copyNotes });
       this.setState({ currentlySelectedIndex: 0})
+      console.log('test 1')
 
     //if it is the last remaining note then clear the note and apply new date created and id
     } else if (noteIndex == 0) {
 
       this.setState({ notes: [{id: uniqid(), note: 'newly deleted', dateCreated: moment().format('L')}]})
       this.setState({ currentlySelectedIndex: 0})
+      console.log('test 2')
     //if it is not the first note then just delete note targeted and set the next targeted note as the one above.
     } else {
       copyNotes.splice(noteIndex, 1);
       this.setState({ notes: copyNotes });
       let nextUpAfterDelete = noteIndex - 1
       this.setState({ currentlySelectedIndex: nextUpAfterDelete})
+      console.log('test 3')
     } 
+    console.log('delete')
   };
 
 
@@ -123,29 +145,45 @@ class App extends Component {
             stateObj={this.state}
             clickDelete={this.deleteNoteFromList}
             currentlySelected={this.state.currentlySelectedIndex}
-            selected={this.state.currentlySelectedIndex}
-            test={'dsfdfgdga'}/>
+            shorten={this.shortenNoteListTitle}/>
         </div>
       )
-    } else {
-      noteList = (
-        <NoteInput notes={this.state.notes} currentlySelected={this.state.currentlySelectedIndex} changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
-      )
+    } 
+
+    if (this.state.currentlySelectedIndex > 2) {
+
     }
+
+
+    // state.notes[currentlySelectedIndex]
 
     console.log(this.state)
     console.log('notes ', this.state.notes)
 
     return (
       <div className="App">
-        <h1>testsss</h1>
-        <div>
-          <button onClick={this.addNewNote} className="add-Note">Add Note</button>
-          <button onClick={this.isNoteListShowing} className="hide-list">{this.state.noteListShowing ? 'Hide' : 'Show'}</button>
-        </div>
-        {noteList}
+        <h1 className={'title'}>NotePad <MdNoteAdd /></h1>
 
-
+        <Container>
+          <Row>
+            <Col>
+              <div>
+                <button onClick={this.addNewNote} className="add-Note"><TiDocumentAdd/></button>
+                <button onClick={this.isNoteListShowing} className="hide-list">{this.state.noteListShowing ? <MdRemove/> : <MdReorder/>}</button>
+                <button onClick={() => this.deleteNoteFromList(this.state.notes[this.state.currentlySelectedIndex].id)}><MdDeleteForever/> </button>
+                <div  className={'notesList'}>
+                  {noteList}
+                </div>
+                
+            </div>
+            </Col>
+            <Col>
+              <div className={'inputtest'}>
+                <NoteInput notes={this.state.notes} currentlySelected={this.state.currentlySelectedIndex} changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
+              </div>
+            </Col>
+          </Row>
+        </Container>
 
       </div>
     );
