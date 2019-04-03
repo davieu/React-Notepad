@@ -22,7 +22,7 @@ class App extends Component {
     ],
     noteListShowing: true,
     currentNote: '',
-    currentlySelectedIndex: 0
+    currentlySelectedIndex: 0,
   };
 
   //toggle for hiding and showing the notes list.
@@ -37,10 +37,10 @@ class App extends Component {
 
     if (shorten.length < 1) {
         return `${shorten}...`
-      } else if (shorten.length < 21) {
+      } else if (shorten.length < 10) {
         return shorten
       } else {
-      let shorternTitle = `${shorten.substring(0, 21)}... ` 
+      let shorternTitle = `${shorten.substring(0, 10)}... ` 
       return shorternTitle
       }
   }
@@ -133,21 +133,32 @@ class App extends Component {
 
   render() {
     let noteList = null;
+    let test = 12
+    let largeBrowserList = 2
+    let largeBrowserInput = 12
 
     //toggle for showing the notes
     if (this.state.noteListShowing) {
       noteList = (
-        <div>
-          <NotesList 
-            changed={this.selectNoteForInput}
-            changeNote={this.changeNote}
-            notes={this.state.notes}
-            stateObj={this.state}
-            clickDelete={this.deleteNoteFromList}
-            currentlySelected={this.state.currentlySelectedIndex}
-            shorten={this.shortenNoteListTitle}/>
-        </div>
+
+        <Col className={'alignCol'} xs={4} md={largeBrowserList} lg={largeBrowserList}>
+          <div className={'noteListBackground'}>
+            <div  className={'notesList'}>
+              <NotesList 
+                changed={this.selectNoteForInput}
+                changeNote={this.changeNote}
+                notes={this.state.notes}
+                stateObj={this.state}
+                clickDelete={this.deleteNoteFromList}
+                currentlySelected={this.state.currentlySelectedIndex}
+                shorten={this.shortenNoteListTitle}/>
+            </div>
+          </div>
+        </Col>
+
       )
+      test=8
+      largeBrowserInput=10
     } 
 
     if (this.state.currentlySelectedIndex > 2) {
@@ -163,22 +174,26 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className={'title'}>NotePad <MdNoteAdd /></h1>
+        <button 
+          onClick={this.addNewNote} className="add-Note">
+          <TiDocumentAdd/>
+        </button>
+        <button 
+          onClick={this.isNoteListShowing} 
+          className="hide-list">
+          {this.state.noteListShowing ? <MdRemove/> : <MdReorder/>}
+        </button>
+        <button 
+          onClick={() => this.deleteNoteFromList(this.state.notes[this.state.currentlySelectedIndex].id)}><MdDeleteForever/>
+        </button>
 
         <Container>
           <Row>
-            <Col>
-              <div>
-                <button onClick={this.addNewNote} className="add-Note"><TiDocumentAdd/></button>
-                <button onClick={this.isNoteListShowing} className="hide-list">{this.state.noteListShowing ? <MdRemove/> : <MdReorder/>}</button>
-                <button onClick={() => this.deleteNoteFromList(this.state.notes[this.state.currentlySelectedIndex].id)}><MdDeleteForever/> </button>
-                <div  className={'notesList'}>
-                  {noteList}
-                </div>
-                
-            </div>
-            </Col>
-            <Col>
-              <div className={'inputtest'}>
+
+              {noteList}
+
+            <Col className={'alignCol'} xs={test} md={largeBrowserInput} lg={largeBrowserInput}>
+              <div >
                 <NoteInput notes={this.state.notes} currentlySelected={this.state.currentlySelectedIndex} changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
               </div>
             </Col>
@@ -191,3 +206,4 @@ class App extends Component {
 }
 
 export default App;
+

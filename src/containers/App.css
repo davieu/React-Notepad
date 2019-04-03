@@ -1,53 +1,59 @@
 /* .App {
   text-align: center;
 } */
+.title {
+  text-align: center;
+}
 
 .noteInput {
   /* border: 0px; */
-  /* height: 50px; */
-  background-color: lightgray;
-  color: red;
+  /* margin-top: 1.87em; */
+  height: 30em;
+  background-color: rgb(206, 216, 219);
   border-bottom:red;
+  width: 100%;
+  overflow: scroll;
+}
 
+.noteInput::-webkit-scrollbar {
+  display:none !important;
+}
+
+.noteListBackground {
+  background-color: rgb(206, 216, 219)
 }
 
 .notesList {
   overflow: scroll;
-  height: 500px;
+  height: 30em;
 }
 
 .notesList::-webkit-scrollbar {
   display:none !important;
 }
 
-.inputtest {
-  padding-top: 1.35em;
+.singleNoteList {
+  background-color: rgb(233, 241, 243);
+  border-top: .1em solid rgb(206, 216, 219);
+  padding-left: 1em;
 }
 
-/* .noteInput:focus {
-  background-color: blue;
-} */
-
-.title {
-  text-align: center;
+.singleNoteList p{
+  margin-bottom:0;
 }
 
-/* .note-text:focus{
-  outline: none;
-} */
-
-.test {
-  background-color: lightblue;
+.singleNoteList:hover {
+  background-color: rgb(206, 216, 219);
 }
 
-.test:hover {
-  background-color: rgb(44, 169, 211);
-}
-
-.test:focus {
+.singleNoteList:focus {
   background-color: rgb(44, 169, 211);
 }
 
 .MuiInputBase-root-36 {
   color: purple;
+}
+
+.alignCol {
+  padding: 0
 }
