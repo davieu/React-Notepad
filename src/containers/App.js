@@ -6,9 +6,10 @@ import Test from '../components/test';
 import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
 import { TiDocumentAdd } from 'react-icons/ti';
 import { FaAngleDoubleUp, FaAngleDoubleDown, FaThList} from 'react-icons/fa';
-import DeleteButton from '../components/DeleteButton';
+import DeleteButton from '../components/buttons/DeleteButton';
+import NavbarNote from '../components/Navbar'
 
-import {Container, Row, Col }from 'react-bootstrap';
+import {Container, Row, Col, Navbar }from 'react-bootstrap';
 
 let moment = require('moment');
 let uniqid = require('uniqid');
@@ -173,7 +174,14 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1 className={'title'}>NotePad <MdNoteAdd /></h1>
+      <NavbarNote 
+        clickDelete={this.deleteNoteFromList}
+        clickShowHideList={this.isNoteListShowing}
+        clickAddNote={this.addNewNote}
+        notes={this.state.notes}
+        currentlySelected={this.state.currentlySelectedIndex}
+        showing={this.state.noteListShowing}/>
+
         <button 
           onClick={this.addNewNote} className="add-Note">
           <TiDocumentAdd/>
