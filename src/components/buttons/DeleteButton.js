@@ -1,6 +1,6 @@
 import React from 'react';
-import  { TiDelete }  from 'react-icons/ti'
-import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
+//icon components
+import { MdDeleteForever } from 'react-icons/md';
 
 
 const deleteButton = (props) => {

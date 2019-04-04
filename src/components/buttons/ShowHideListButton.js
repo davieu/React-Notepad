@@ -1,15 +1,13 @@
 import React from 'react';
-import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
+//icon Components
+import { MdReorder, MdRemove } from 'react-icons/md';
 
 const showHideListButton = (props) => {
   return (
-    <button 
-      onClick={props.clickShowHideList} 
-      className="hide-list">
+    <button className="buttons" onClick={props.clickShowHideList} >
       {props.showing ? <MdRemove/> : <MdReorder/>}
     </button>
   )
-
 }
 
 export default showHideListButton;

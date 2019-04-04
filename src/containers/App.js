@@ -182,7 +182,7 @@ class App extends Component {
         currentlySelected={this.state.currentlySelectedIndex}
         showing={this.state.noteListShowing}/>
 
-        <button 
+        {/* <button 
           onClick={this.addNewNote} className="add-Note">
           <TiDocumentAdd/>
         </button>
@@ -193,7 +193,7 @@ class App extends Component {
         </button>
         <button 
           onClick={() => this.deleteNoteFromList(this.state.notes[this.state.currentlySelectedIndex].id)}><MdDeleteForever/>
-        </button>
+        </button> */}
 
         <Container>
           <Row>
@@ -214,4 +214,3 @@ class App extends Component {
 }
 
 export default App;
-

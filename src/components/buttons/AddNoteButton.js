@@ -1,5 +1,5 @@
 import React from 'react'
-import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
+//icon components
 import { TiDocumentAdd } from 'react-icons/ti';
 
 const addNoteButton = (props) => {
