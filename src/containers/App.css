@@ -6,7 +6,7 @@
 } */
 
 .noteInput {
-  height: 30em;
+  height: 50em;
   background-color: rgb(206, 216, 219);
   border-bottom:red;
   width: 100%;
@@ -23,7 +23,7 @@
 
 .notesList {
   overflow: scroll;
-  height: 30em;
+  height: 50em;
 }
 
 .notesList::-webkit-scrollbar {
