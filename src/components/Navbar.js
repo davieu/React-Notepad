@@ -1,5 +1,6 @@
 import React from 'react';
 import NoteList from './Notes/NotesList'
+import NoteEditor from './NoteEditor'
 //button comonents
 import DeleteButton from './buttons/DeleteButton';
 import AddNoteButton from './buttons/AddNoteButton'
@@ -9,6 +10,7 @@ import {Container, Row, Col, Navbar, Nav, NavDropdown }from 'react-bootstrap';
 //icon components
 import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
 import { TiDocumentAdd, TiThMenu } from 'react-icons/ti';
+import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import NoteInput from './NoteInput';
 
@@ -79,6 +81,14 @@ const navbarNote = (props) => {
             currentlySelected={props.currentlySelected} 
             changeNote={props.changeNote} 
             relatedNote={props.relatedNote}/>
+      <NoteEditor
+                editorState={props.editorState} 
+                onChange={props.onChange}
+                placeholder={props.placeholder}/>
+                  {/* <Editor 
+        editorState={props.editorState} 
+        onChange={props.change}
+        placeholder={props.placeholder}/> */}
   </div>
 </div>
 

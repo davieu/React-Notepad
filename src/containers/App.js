@@ -8,6 +8,7 @@ import { TiDocumentAdd } from 'react-icons/ti';
 import { FaAngleDoubleUp, FaAngleDoubleDown, FaThList} from 'react-icons/fa';
 import DeleteButton from '../components/buttons/DeleteButton';
 import NavbarNote from '../components/Navbar'
+import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import {Container, Row, Col, Navbar }from 'react-bootstrap';
 
@@ -25,7 +26,27 @@ class App extends Component {
     toggled:false,
     currentNote: '',
     currentlySelectedIndex: 0,
+    editorState: EditorState.createEmpty()
   };
+  // state = {
+  //   notes: [
+  //     {id: uniqid(), note: '', dateCreated: moment().format('L')}
+  //   ],
+  //   noteListShowing: true,
+  //   toggled:false,
+  //   currentNote: '',
+  //   currentlySelectedIndex: 0,
+  // };
+
+  onChange = (editorState) => {
+    this.setState({editorState})
+  }
+
+  makeBold() {
+    this.onChange(RichUtils.toggleInlineStyle(
+      this.state.editorState, 'BOLD'
+    ));
+  }
 
   //toggle for hiding and showing the notes list.
   isNoteListShowing = () => {
@@ -165,7 +186,9 @@ class App extends Component {
                 stateObj={this.state}
                 clickDelete={this.deleteNoteFromList}
                 currentlySelected={this.state.currentlySelectedIndex}
-                shorten={this.shortenNoteListTitle}/>
+                shorten={this.shortenNoteListTitle}
+                />
+                
             </div>
           </div>
         </Col>
@@ -199,7 +222,19 @@ class App extends Component {
         toggled={this.toggleClass}
         shorten={this.shortenNoteListTitle}
         changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} 
-        relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
+        relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}
+        editorState={this.state.editorState} 
+        onChange={this.onChange}
+        placeholder="this is an editor" 
+        // editorState={this.state.notes[this.state.currentlySelectedIndex].editorState} 
+        // editorState2={this.state.editorState} 
+        // onChange={(editorState) => {this.onChange(editorState)}}
+        // placeholder="this is an editor"
+        />
+              {/* <Editor 
+        editorState={this.state.editorState} 
+        onChange={(editorState) => {this.onChange(editorState)}}
+        placeholder="this is an editorsssssssssssssssssssssssssssssssssssssssssssssssssssssssss" /> */}
 
 
         {/* <Container>
