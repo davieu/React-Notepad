@@ -22,6 +22,7 @@ class App extends Component {
       {id: uniqid(), note: '', dateCreated: moment().format('L')}
     ],
     noteListShowing: true,
+    toggled:false,
     currentNote: '',
     currentlySelectedIndex: 0,
   };
@@ -34,14 +35,26 @@ class App extends Component {
     });
   };
 
+  toggleClass = (e) => {
+    e.preventDefault();
+    console.log(e.target)
+    if (this.state.toggled) {
+      document.getElementById('wrapper').classList.remove('toggled')
+      this.setState({toggled: false})
+    } else {
+      document.getElementById('wrapper').classList.add('toggled')
+      this.setState({toggled: true})
+    }
+  }
+
   shortenNoteListTitle = (shorten) => {
 
     if (shorten.length < 1) {
         return `${shorten}...`
-      } else if (shorten.length < 10) {
+      } else if (shorten.length < 20) {
         return shorten
       } else {
-      let shorternTitle = `${shorten.substring(0, 10)}... ` 
+      let shorternTitle = `${shorten.substring(0, 20)}... ` 
       return shorternTitle
       }
   }
@@ -175,12 +188,39 @@ class App extends Component {
     return (
       <div className="App">
       <NavbarNote 
+        changed={this.selectNoteForInput}
+        changeNote={this.changeNote}
         clickDelete={this.deleteNoteFromList}
         clickShowHideList={this.isNoteListShowing}
         clickAddNote={this.addNewNote}
         notes={this.state.notes}
         currentlySelected={this.state.currentlySelectedIndex}
-        showing={this.state.noteListShowing}/>
+        showing={this.state.noteListShowing}
+        toggled={this.toggleClass}
+        shorten={this.shortenNoteListTitle}
+        changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} 
+        relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
+
+
+        {/* <Container>
+          <Row>
+
+              {noteList}
+
+            <Col className={'alignCol'} xs={test} md={largeBrowserInput} lg={largeBrowserInput}>
+              <div >
+                <NoteInput notes={this.state.notes} currentlySelected={this.state.currentlySelectedIndex} changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
+              </div>
+            </Col>
+          </Row>
+        </Container> */}
+
+      </div>
+    );
+  }
+}
+
+export default App;
 
         {/* <button 
           onClick={this.addNewNote} className="add-Note">
@@ -194,23 +234,3 @@ class App extends Component {
         <button 
           onClick={() => this.deleteNoteFromList(this.state.notes[this.state.currentlySelectedIndex].id)}><MdDeleteForever/>
         </button> */}
-
-        <Container>
-          <Row>
-
-              {noteList}
-
-            <Col className={'alignCol'} xs={test} md={largeBrowserInput} lg={largeBrowserInput}>
-              <div >
-                <NoteInput notes={this.state.notes} currentlySelected={this.state.currentlySelectedIndex} changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}/>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-
-      </div>
-    );
-  }
-}
-
-export default App;

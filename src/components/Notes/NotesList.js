@@ -1,13 +1,20 @@
 import React from 'react';
 
 const notesList = (props) => props.notes.map((note) => {
+
+  const style={margin:'0'}
   return ( 
-      <div 
-        className={'singleNoteList'} 
-        key={note.id} 
-        onClick={() => props.changed(note.id)}>
-        <p>{props.shorten(note.note)}</p> <p>{note.dateCreated}</p>
-      </div>
+      // <div 
+      //   className={'singleNoteList'} 
+      //   key={note.id} 
+      //   onClick={() => props.changed(note.id)}>
+      //   <p>{props.shorten(note.note)}</p> <p>{note.dateCreated}</p>
+      // </div>
+
+        <div key={note.id} className={'noteItem'}> 
+        <button onClick={() => props.changed(note.id)}
+        onClick={() => props.changed(note.id)} className="list-group-item list-group-item-action bg-light">{props.shorten(note.note)} <p style={style}>{note.dateCreated}</p>
+        </button></div>
   )
 })
 
