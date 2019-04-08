@@ -20,13 +20,14 @@ let randomWords = require('random-words');
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), note: '', dateCreated: moment().format('L')}
+      {id: uniqid(), note: '', dateCreated: moment().format('L'), selected:false}
     ],
     noteListShowing: true,
     toggled:false,
     currentNote: '',
     currentlySelectedIndex: 0,
-    editorState: EditorState.createEmpty()
+    editorState: EditorState.createEmpty(),
+    targ: true
   };
   // state = {
   //   notes: [
@@ -38,8 +39,14 @@ class App extends Component {
   //   currentlySelectedIndex: 0,
   // };
 
+  componentDidMount = () => {
+    this.setState({currentlySelectedIndex:0})
+  }
+
   onChange = (editorState) => {
     this.setState({editorState})
+    // let editor = this.state.notes[this.state.currentlySelectedIndex].editorState
+    // this.setState({editor})
   }
 
   makeBold() {
@@ -97,13 +104,63 @@ class App extends Component {
 
   //helper function for finding the selected note id/index
   selectedNoteID__Helper = (noteID) => {
+    document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).classList.add('noteFocused')
     let indexSelected = this.state.notes.findIndex(note => {
       return note.id === noteID;
     })
+
     // console.log('selectedNoteID__Helper Index', indexSelected)
     // console.log('selectedNoteID__Helper ID', noteID)
     return indexSelected;
   };
+
+  // componentDidMount = () =>  {
+  //   document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.color = 'red';
+  // }
+
+  // turnblack = () => {
+  //   document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.color = 'black'
+  // }
+
+
+      // console.log(this.state.currentlySelectedIndex)
+      // console.log(this.state.notes[this.state.currentlySelectedIndex].id)
+      // const isShowing = this.state.notes[this.state.currentlySelectedIndex].selected;
+      // if (this.state.notes[this.state.currentlySelectedIndex].selected) {
+      //   this.setState({
+      //     targ: !isShowing
+      //   });
+      // }
+
+      // if (this.state.notes[this.state.currentlySelectedIndex].selected) {
+      //   this.setState({
+      //     targ: !isShowing
+      //   });
+      // }
+
+    // }
+    // document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex + 1].id}`).style.color = 'red'
+    // document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).classList.add = 'noteFocused'
+
+    // componentDidMount = () => {
+    //   document.querySelector(`.${this.state.notes[0].id}`).style.backgroundColor = '#dae0e5 '
+    // }
+
+    // componentDidUpdate = () => {
+    //   document.querySelector(`.${this.state.notes[0].id}`).style.backgroundColor = '#f8f9fa'
+    // }
+    componentDidMount = () => {
+      document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
+    }
+
+    componentDidUpdate = () => {
+      // let itemsListNodes = document.querySelectorAll('.noteItem')
+      // let itemList = Array.from(itemsListNodes)
+  
+      // itemList.forEach(cur => cur.style.backgroundColor = "#f8f9fa")
+      document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
+      
+    }
 
 
   //helper function for getting currently selected note from the notestab
@@ -112,8 +169,45 @@ class App extends Component {
     this.setState({
       currentlySelectedIndex: noteIndex
     })
+
+    let itemsListNodes = document.querySelectorAll('.noteItem')
+    let itemList = Array.from(itemsListNodes)
+
+    // itemList.forEach(cur => cur.style.backgroundColor = "#f8f9fa")
+    // itemList.forEach(cur => cur.style.backgroundColor = "#f8f9fa")
+    // itemList.forEach(cur => 
+    //   cur.style.backgroundColor = "#f8f9fa")
+
+    // document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5'
+    // itemList.forEach(cur => cur.classList.add('target-item'))
+    // document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5'
+
+    // if (document.querySelector(`.${this.state.notes[noteIndex].id}`)) {
+    //   document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5'
+    // } else if (!document.querySelector(`.${this.state.notes[noteIndex].id}`)) {
+    //       let itemsListNodes = document.querySelectorAll('.noteItem')
+    // let itemList = Array.from(itemsListNodes)
+    // itemList.forEach(cur => cur.style.backgroundColor = "#f8f9fa")
+    // }
+    // else {
+    //   document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5 '
+    // }
+    // document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5 '
+
+    // this.turnblack()
+
+    // let isShowing = this.state.notes[this.state.currentlySelectedIndex].selected;
+
+    // this.setState({isShowing: true})
+    // console.log(this.state.notes[this.state.currentlySelectedIndex].selected)
+
+    // document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.color = 'black'
+    // document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.color = 'red'
+
+
     console.log(noteID)
     console.log(noteIndex)
+    console.log('sdfbsdhufvshdvfhjv ')
   }
 
 
@@ -138,7 +232,7 @@ class App extends Component {
 
     const copyNotes = [...this.state.notes];
     let noteIndex = this.selectedNoteID__Helper(noteID);
-    let notesLength = this.state.notes.length
+    let notesLength = this.state.notes.length    
 
     //if the first note is clicked and the length of notes is > 1
     //then delete the note and make the next note under it the first.
@@ -173,44 +267,48 @@ class App extends Component {
     let largeBrowserInput = 12
 
     //toggle for showing the notes
-    if (this.state.noteListShowing) {
-      noteList = (
+    // if (this.state.noteListShowing) {
+    //   noteList = (
 
-        <Col className={'alignCol'} xs={4} md={largeBrowserList} lg={largeBrowserList}>
-          <div className={'noteListBackground'}>
-            <div  className={'notesList'}>
-              <NotesList 
-                changed={this.selectNoteForInput}
-                changeNote={this.changeNote}
-                notes={this.state.notes}
-                stateObj={this.state}
-                clickDelete={this.deleteNoteFromList}
-                currentlySelected={this.state.currentlySelectedIndex}
-                shorten={this.shortenNoteListTitle}
-                />
+    //     <Col className={'alignCol'} xs={4} md={largeBrowserList} lg={largeBrowserList}>
+    //       <div className={'noteListBackground'}>
+    //         <div  className={'notesList'}>
+    //           <NotesList 
+    //             changed={this.selectNoteForInput}
+    //             changeNote={this.changeNote}
+    //             notes={this.state.notes}
+    //             stateObj={this.state}
+    //             clickDelete={this.deleteNoteFromList}
+    //             currentlySelected={this.state.currentlySelectedIndex}
+    //             shorten={this.shortenNoteListTitle}
+    //             />
                 
-            </div>
-          </div>
-        </Col>
+    //         </div>
+    //       </div>
+    //     </Col>
 
-      )
-      test=8
-      largeBrowserInput=10
-    } 
+    //   )
+    //   test=8
+    //   largeBrowserInput=10
+    // } 
 
-    if (this.state.currentlySelectedIndex > 2) {
+    // if (this.state.currentlySelectedIndex > 2) {
 
-    }
+    // }
 
 
     // state.notes[currentlySelectedIndex]
-
-    console.log(this.state)
-    console.log('notes ', this.state.notes)
+    console.log(this.state.notes[this.state.currentlySelectedIndex].selected)
+    // console.log(this.state)
+    // console.log('notes ', this.state.notes)
+    // console.log(this.state.editorState)
 
     return (
       <div className="App">
       <NavbarNote 
+        targ={this.state.targ}
+        turnred={this.turnRed}
+        touched={this.focusButton}
         changed={this.selectNoteForInput}
         changeNote={this.changeNote}
         clickDelete={this.deleteNoteFromList}
@@ -231,6 +329,8 @@ class App extends Component {
         // onChange={(editorState) => {this.onChange(editorState)}}
         // placeholder="this is an editor"
         />
+
+{/* <p>{JSON.stringify(this.state.editorState.getCurrentContent())}</p> */}
               {/* <Editor 
         editorState={this.state.editorState} 
         onChange={(editorState) => {this.onChange(editorState)}}

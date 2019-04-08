@@ -3,6 +3,8 @@ import React from 'react';
 const notesList = (props) => props.notes.map((note) => {
 
   const style={margin:'0'}
+
+  // color: '#495057'
   return ( 
       // <div 
       //   className={'singleNoteList'} 
@@ -11,10 +13,13 @@ const notesList = (props) => props.notes.map((note) => {
       //   <p>{props.shorten(note.note)}</p> <p>{note.dateCreated}</p>
       // </div>
 
-        <div key={note.id} className={'noteItem'}> 
-        <button onClick={() => props.changed(note.id)}
-        onClick={() => props.changed(note.id)} className="list-group-item list-group-item-action bg-light">{props.shorten(note.note)} <p style={style}>{note.dateCreated}</p>
-        </button></div>
+        // <div key={note.id} className={`noteItem ${note.id}`}> 
+        // <button onClick={() => props.changed(note.id)}
+        // className={`list-group-item list-group-item-action bg-light ${note.id}`}>{props.shorten(note.note)} <p style={style}>{note.dateCreated}</p>
+        // </button></div>
+        <button key={note.id} onClick={() => props.changed(note.id)}
+        className={`noteItem target-item list-group-item list-group-item-action ${note.id}`}>{props.shorten(note.note)} <p style={style}>{note.dateCreated}</p>
+        </button>
   )
 })
 

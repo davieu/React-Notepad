@@ -16,6 +16,7 @@ import NoteInput from './NoteInput';
 
 
 const navbarNote = (props) => {
+  let testtt = convertToRaw(props.editorState.getCurrentContent())
   return (
 
     <div className='d-flex' id='wrapper'>
@@ -26,6 +27,9 @@ const navbarNote = (props) => {
         <div className="noteslist">
         <div className="list-group list-group-flush">
           <NoteList
+          targ={props.targ}
+            turnred={props.turnred}
+           touched={props.touched}
             changed={props.changed}
             changeNote={props.changeNote}
             clickDelete={props.clickDelete}
@@ -40,8 +44,8 @@ const navbarNote = (props) => {
         </div>
       </div>
 
-      <div id="page-content-wrapper">
-
+      <div id="page-content-wrapper" >
+      {/* <div className='testhere'> */}
 <Nav className="navbar  navbar-light bg-light border-bottom">
 
 <button onClick={props.toggled} className="btn btn-primary" id="menu-toggle"><TiThMenu/></button>
@@ -74,21 +78,30 @@ const navbarNote = (props) => {
     </ul>
   </div>
 </Nav>
-
-  <div className="container-fluid">
+    <div className='testhere'>
+  <div className="container-fluid test-scroll">
     <NoteInput 
             notes={props.notes} 
             currentlySelected={props.currentlySelected} 
             changeNote={props.changeNote} 
             relatedNote={props.relatedNote}/>
-      <NoteEditor
+      {/* <NoteEditor
                 editorState={props.editorState} 
                 onChange={props.onChange}
-                placeholder={props.placeholder}/>
-                  {/* <Editor 
+                placeholder={props.placeholder}
+                notes={props.notes}
+                currentlySelected={props.currentlySelected} /> */}
+
+                  <Editor className={'scroller'}
         editorState={props.editorState} 
-        onChange={props.change}
-        placeholder={props.placeholder}/> */}
+        onChange={props.onChange}
+        placeholder={props.placeholder}/>
+                        {/* <p>{props.notes[0].note}</p>
+                        <p>{JSON.stringify(props.editorState)}</p> */}
+                        {/* <p>{convertToRaw(props.editorState.getCurrentContent())}</p> */}
+                        {/* <p>{testtt.blocks[0].text}</p> */}
+                {/* <p>{props.notes[props.currentlySelected].editorState}</p> */}
+  </div>
   </div>
 </div>
 

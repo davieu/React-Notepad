@@ -63,10 +63,6 @@ body {
   overflow-y: hidden;
 }
 
-.red {
-  color:red;
-}
-
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
@@ -76,22 +72,31 @@ body {
   transition: margin .25s ease-out;
 }
 
+  /* #dae0e5 */
 .noteItem {
-  border-top: .1rem solid rgb(224, 215, 215)
+  border-top: .1rem solid rgb(224, 215, 215);
+  background-color: #f8f9fa;
+
+}
+
+.noteItem:hover {
+  background-color: #dae0e5 ;
+
+}
+
+.target-item:hover {
+  background-color:#dae0e5;
 }
 
 .noteslist {
   /* background-color: rgb(206, 216, 219); */
   overflow: scroll;
-  height: 100vh;
+  height: 90vh;
 }
 .noteslist::-webkit-scrollbar {
   display:none !important;
 }
 
-.test {
-  float:left;
-}
 
 #sidebar-wrapper .sidebar-heading {
   padding: 0.15rem 1.25rem;
@@ -100,8 +105,13 @@ body {
   border-radius:0;
 }
 
+#sidebar-wrapper .sidebar-heading:focus {
+  box-shadow:none;
+}
+
+
 .fontit {
-  padding:50px 20px 10px 20px
+  padding:50px 20px 10px 20px;
 }
 
 #sidebar-wrapper .list-group {
@@ -132,10 +142,20 @@ body {
   }
 }
 
-.poop {
+/* .poop {
   margin-left: 15rem;
+} */
+
+/* .test-scroll{ overflow:scroll;}
+.test{ overflow:scroll;} */
+
+/* .test-scroll{ background-color:red;} */
+.testhere {
+  overflow:scroll;
+  height: 90vh;
 }
 
-
-
+.testhere::-webkit-scrollbar {
+  display:none !important;
+}
 
