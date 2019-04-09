@@ -71,7 +71,6 @@ class App extends Component {
     // focuses the currently selected
     document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5'
     console.log(noteID)
-    console.log(noteIndex)
   }
 
   // toggles the notelist from show to hide with add/remove class
@@ -171,7 +170,7 @@ class App extends Component {
 
   render() {
     // state.notes[currentlySelectedIndex]
-    console.log(this.state.notes.length)
+    // console.log(this.state.notes.length)
     console.log('selected ',this.state.currentlySelectedIndex)
     // console.log(this.state.notes[this.state.currentlySelectedIndex])
     // console.log(this.state)
