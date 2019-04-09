@@ -7,9 +7,6 @@ const NoteEditor = (props) => {
         editorState={props.editorState} 
         onChange={(editorState) => {props.onChange(editorState)}}
         placeholder={props.placeholder}/>
-        // editorState={props.notes[props.currentlySelected].editorState} 
-        // onChange={(editorState) => {props.onChange(props.notes[props.currentlySelected].editorState)}}
-        // placeholder={props.placeholder}/>
   )
 }
 

@@ -1,8 +1,6 @@
 import React from 'react'
 //icon components
 import { TiDocumentAdd } from 'react-icons/ti';
-import { MdAdd } from "react-icons/md";
-
 
 const addNoteButton = (props) => {
   return (
