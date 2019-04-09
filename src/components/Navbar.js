@@ -18,6 +18,8 @@ const navbarNote = (props) => {
   return (
 
     <div className='d-flex' id='wrapper'>
+      {/* *****************************************************************
+      The noteslist section */}
       <div className="bg-light border-right" id="sidebar-wrapper">
         <AddNoteButton clickAddNote={props.clickAddNote}/>
         <div className="noteslist">
@@ -36,6 +38,8 @@ const navbarNote = (props) => {
         </div>
       </div>
 
+      {/* ***********************************************************
+      The navbar section */}
       <div id="page-content-wrapper" >
         <Nav className="navbar  navbar-light bg-light border-bottom">
 
@@ -84,6 +88,8 @@ const navbarNote = (props) => {
         </div>
         </Nav>
 
+        {/* *****************************************************************
+        The note/input section with draftjs editor */}
         <div className='testhere'>
           <div className="container-fluid test-scroll">
             <NoteInput 

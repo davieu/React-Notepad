@@ -18,7 +18,7 @@ let randomWords = require('random-words');
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), note: '', dateCreated: moment().format('L')}
+      {id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty}
     ],
     toggled:false,
     currentNote: '',
