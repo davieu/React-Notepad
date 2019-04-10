@@ -149,13 +149,19 @@ body {
 /* .test-scroll{ overflow:scroll;}
 .test{ overflow:scroll;} */
 
-/* .test-scroll{ background-color:red;} */
-.testhere {
+.test-scroll { 
+  overflow:scroll;
+  height:90vh;
+}
+.test-scroll::-webkit-scrollbar {
+  display:none !important;
+}
+/* .testhere {
   overflow:scroll;
   height: 90vh;
 }
 
 .testhere::-webkit-scrollbar {
   display:none !important;
-}
+} */
 

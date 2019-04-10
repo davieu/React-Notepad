@@ -92,23 +92,23 @@ const navbarNote = (props) => {
         The note/input section with draftjs editor */}
         <div className='testhere'>
           <div className="container-fluid test-scroll">
-            <NoteInput 
+            {/* <NoteInput 
               notes={props.notes} 
               currentlySelected={props.currentlySelected} 
               changeNote={props.changeNote} 
-              relatedNote={props.relatedNote}/>
+              relatedNote={props.relatedNote}/> */}
 
-            <NoteEditor className={'scroller'}
-              editorState={props.editorState} 
-              onChange={props.onChange}
-              placeholder={props.placeholder}/>
-              <p>{convertToRaw(props.editorState.getCurrentContent()).blocks[0].text}</p>
+            <NoteEditor       
+              editorState2={props.editorState2} 
+              onChange2={props.onChange2}
+              placeholder2={props.placeholder2}/>
+              {/* <p>{convertToRaw(props.editorState.getCurrentContent()).blocks[0].text}</p> */}
 
-            <Editor 
+            {/* <Editor 
             editorState={props.editorState2}
             onChange={(editorState) => {props.onChange2(editorState)}}
             placeholder={props.placeholder2}/>
-            <h1>{convertToRaw(props.notes[props.currentlySelected].editorState.getCurrentContent()).blocks[0].text}</h1>
+            <h1>{convertToRaw(props.notes[props.currentlySelected].editorState.getCurrentContent()).blocks[0].text}</h1> */}
             {/* <h1>{convertToRaw(props.notes[1].editorState.getCurrentContent()).blocks[0].text}</h1> */}
           </div>
         </div>

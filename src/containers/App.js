@@ -18,13 +18,15 @@ let randomWords = require('random-words');
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty()},{id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
+      {id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
     ],
     toggled:false,
     currentlySelectedIndex: 0,
     editorState: EditorState.createEmpty(),
     targ: true
   };
+
+
 
 
 /*********************************************
@@ -56,6 +58,12 @@ class App extends Component {
       this.state.editorState, 'BOLD'
     ));
   }
+
+  // setDomEditorRef = ref => this.domEditor = ref
+
+  // componentDidMount = () => {
+  //   this.domEditor.focus()
+  // }
 
 /************************************************
 * HELPER FUNCTIONS
@@ -101,15 +109,16 @@ class App extends Component {
 
   // shortens the note title on the list
   shortenNoteListTitle = (shorten) => {
+    // console.log(this.state.notes)
 
-    if (shorten.length < 1) {
-        return `${shorten}...`
-    } else if (shorten.length < 20) {
-        return shorten
-    } else {
-        let shorternTitle = `${shorten.substring(0, 20)}... ` 
-        return shorternTitle
-    }
+    // if (shorten.length < 1) {
+    //     return `${shorten}...`
+    // } else if (shorten.length < 20) {
+    //     return shorten
+    // } else {
+    //     let shorternTitle = `${shorten.substring(0, 20)}... ` 
+    //     return shorternTitle
+    // }
   }
 
 /************************************************
@@ -188,8 +197,8 @@ class App extends Component {
     // console.log(this.state.notes.length)
     console.log('selected ',this.state.currentlySelectedIndex)
     console.log(this.state)
-    console.log(this.state.notes[0].editorState)
-    console.log(this.state.editorState)
+    // console.log(this.state.notes[0].editorState)
+    // console.log(this.state.editorState)
     // console.log(this.state.notes[this.state.currentlySelectedIndex])
     // console.log(this.state)
     // console.log('notes ', this.state.notes)
@@ -218,6 +227,7 @@ class App extends Component {
           editorState2={this.state.notes[this.state.currentlySelectedIndex].editorState}
           onChange2={this.onChange2}
           placeholder2="second placeholder"
+          ref={this.setDomEditorRef}
           
           // editorState={this.state.notes[this.state.currentlySelectedIndex].editorState} 
           // editorState2={this.state.editorState} 
