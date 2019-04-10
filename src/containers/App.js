@@ -18,10 +18,9 @@ let randomWords = require('random-words');
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty}
+      {id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty()},{id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
     ],
     toggled:false,
-    currentNote: '',
     currentlySelectedIndex: 0,
     editorState: EditorState.createEmpty(),
     targ: true
@@ -35,6 +34,21 @@ class App extends Component {
   // handles the state of the editor
   onChange = (editorState) => {
     this.setState({editorState})
+  }
+
+  onChange2 = (editorState) => {
+    // this.setState({editorState})
+    // let noteIndex = this.selectedNoteID__Helper(noteID);
+    const copyNote = {
+      ...this.state.notes[this.state.currentlySelectedIndex]
+    };
+
+    copyNote.editorState = editorState
+    const copyNotes = [...this.state.notes];
+
+    copyNotes[this.state.currentlySelectedIndex] = copyNote;
+    this.setState({ notes: copyNotes })
+
   }
 
   makeBold() {
@@ -108,7 +122,8 @@ class App extends Component {
     let newNote = {
       id: uniqid(),
       note: randomWords({exactly: 5, join: ' '}),
-      dateCreated: moment().format('L')
+      dateCreated: moment().format('L'),
+      editorState: EditorState.createEmpty()
     };
 
     this.setState({
@@ -172,6 +187,9 @@ class App extends Component {
     // state.notes[currentlySelectedIndex]
     // console.log(this.state.notes.length)
     console.log('selected ',this.state.currentlySelectedIndex)
+    console.log(this.state)
+    console.log(this.state.notes[0].editorState)
+    console.log(this.state.editorState)
     // console.log(this.state.notes[this.state.currentlySelectedIndex])
     // console.log(this.state)
     // console.log('notes ', this.state.notes)
@@ -196,6 +214,11 @@ class App extends Component {
           editorState={this.state.editorState} 
           onChange={this.onChange}
           placeholder="this is an editor" 
+
+          editorState2={this.state.notes[this.state.currentlySelectedIndex].editorState}
+          onChange2={this.onChange2}
+          placeholder2="second placeholder"
+          
           // editorState={this.state.notes[this.state.currentlySelectedIndex].editorState} 
           // editorState2={this.state.editorState} 
           // onChange={(editorState) => {this.onChange(editorState)}}

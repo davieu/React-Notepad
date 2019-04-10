@@ -98,10 +98,18 @@ const navbarNote = (props) => {
               changeNote={props.changeNote} 
               relatedNote={props.relatedNote}/>
 
-            <Editor className={'scroller'}
+            <NoteEditor className={'scroller'}
               editorState={props.editorState} 
               onChange={props.onChange}
               placeholder={props.placeholder}/>
+              <p>{convertToRaw(props.editorState.getCurrentContent()).blocks[0].text}</p>
+
+            <Editor 
+            editorState={props.editorState2}
+            onChange={(editorState) => {props.onChange2(editorState)}}
+            placeholder={props.placeholder2}/>
+            <h1>{convertToRaw(props.notes[props.currentlySelected].editorState.getCurrentContent()).blocks[0].text}</h1>
+            {/* <h1>{convertToRaw(props.notes[1].editorState.getCurrentContent()).blocks[0].text}</h1> */}
           </div>
         </div>
       </div>
