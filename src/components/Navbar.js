@@ -91,7 +91,7 @@ const navbarNote = (props) => {
         {/* *****************************************************************
         The note/input section with draftjs editor */}
         <div className='testhere'>
-          <div className="container-fluid test-scroll">
+          {/* <div className="container-fluid test-scroll"> */}
             {/* <NoteInput 
               notes={props.notes} 
               currentlySelected={props.currentlySelected} 
@@ -99,9 +99,10 @@ const navbarNote = (props) => {
               relatedNote={props.relatedNote}/> */}
 
             <NoteEditor       
-              editorState2={props.editorState2} 
-              onChange2={props.onChange2}
-              placeholder2={props.placeholder2}/>
+              editorState={props.editorState} 
+              onChange={props.onChange}
+              editorRef={props.editorRef}
+              />
               {/* <p>{convertToRaw(props.editorState.getCurrentContent()).blocks[0].text}</p> */}
 
             {/* <Editor 
@@ -110,7 +111,7 @@ const navbarNote = (props) => {
             placeholder={props.placeholder2}/>
             <h1>{convertToRaw(props.notes[props.currentlySelected].editorState.getCurrentContent()).blocks[0].text}</h1> */}
             {/* <h1>{convertToRaw(props.notes[1].editorState.getCurrentContent()).blocks[0].text}</h1> */}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>

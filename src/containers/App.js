@@ -18,12 +18,11 @@ let randomWords = require('random-words');
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), note: '', dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
+      {id: uniqid(), dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
     ],
     toggled:false,
     currentlySelectedIndex: 0,
-    editorState: EditorState.createEmpty(),
-    targ: true
+    editorState: EditorState.createEmpty()
   };
 
 
@@ -35,10 +34,6 @@ class App extends Component {
 
   // handles the state of the editor
   onChange = (editorState) => {
-    this.setState({editorState})
-  }
-
-  onChange2 = (editorState) => {
     // this.setState({editorState})
     // let noteIndex = this.selectedNoteID__Helper(noteID);
     const copyNote = {
@@ -59,11 +54,13 @@ class App extends Component {
     ));
   }
 
-  // setDomEditorRef = ref => this.domEditor = ref
+  setDomEditorRef = ref => {
+    this.domEditor = ref
+  }
 
-  // componentDidMount = () => {
-  //   this.domEditor.focus()
-  // }
+  componentDidMount = () => {
+    this.domEditor.focus()
+  }
 
 /************************************************
 * HELPER FUNCTIONS
@@ -107,20 +104,6 @@ class App extends Component {
     }
   }
 
-  // shortens the note title on the list
-  shortenNoteListTitle = (shorten) => {
-    // console.log(this.state.notes)
-
-    // if (shorten.length < 1) {
-    //     return `${shorten}...`
-    // } else if (shorten.length < 20) {
-    //     return shorten
-    // } else {
-    //     let shorternTitle = `${shorten.substring(0, 20)}... ` 
-    //     return shorternTitle
-    // }
-  }
-
 /************************************************
  * App functions
  */
@@ -130,7 +113,6 @@ class App extends Component {
     const copyNotes = [...this.state.notes];
     let newNote = {
       id: uniqid(),
-      note: randomWords({exactly: 5, join: ' '}),
       dateCreated: moment().format('L'),
       editorState: EditorState.createEmpty()
     };
@@ -144,11 +126,18 @@ class App extends Component {
     })
 
     // didUpdate was needed to get the currently updated selected note
-    this.componentDidUpdate = () => {
-      this.allNotesRefreshed();
-      document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
-    }
+    // this.componentDidUpdate = () => {
+    //   this.allNotesRefreshed();
+    //   document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
+    //   this.domEditor.focus()
+    // }
   };
+
+  componentDidUpdate = () => {
+    this.allNotesRefreshed();
+    document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
+    this.domEditor.focus()
+  }
 
   // edit a note and saving to state onchange
   changeNote = (event, noteID) => {
@@ -180,7 +169,7 @@ class App extends Component {
 
     // if it is the last remaining note then clear the note and apply new date created and id
     } else if (noteIndex == 0) {
-      this.setState({ notes: [{id: uniqid(), note: 'newly deleted', dateCreated: moment().format('L')}]})
+      this.setState({ notes: [{id: uniqid(), editorState: EditorState.createEmpty(), dateCreated: moment().format('L')}]})
       this.setState({ currentlySelectedIndex: 0})
     //if it is not the first note then just delete note targeted and set the next targeted note as the one above.
     } else {
@@ -217,17 +206,11 @@ class App extends Component {
           changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} 
           relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}
         
-          shorten={this.shortenNoteListTitle}
           toggled={this.toggleClass}
 
-          editorState={this.state.editorState} 
+          editorState={this.state.notes[this.state.currentlySelectedIndex].editorState}
           onChange={this.onChange}
-          placeholder="this is an editor" 
-
-          editorState2={this.state.notes[this.state.currentlySelectedIndex].editorState}
-          onChange2={this.onChange2}
-          placeholder2="second placeholder"
-          ref={this.setDomEditorRef}
+          editorRef={this.setDomEditorRef}
           
           // editorState={this.state.notes[this.state.currentlySelectedIndex].editorState} 
           // editorState2={this.state.editorState} 

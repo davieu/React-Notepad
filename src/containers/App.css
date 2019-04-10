@@ -150,6 +150,7 @@ body {
 .test{ overflow:scroll;} */
 
 .test-scroll { 
+  padding-top:30px;
   overflow:scroll;
   height:90vh;
 }
