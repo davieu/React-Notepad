@@ -1,66 +1,69 @@
 import React, { Component } from 'react';
 import './App.css';
-// import NotesList from '../components/Notes/NotesList';
-// import NoteInput from '../components/NoteInput';
-// import Test from '../components/test';
-// import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
-// import { TiDocumentAdd } from 'react-icons/ti';
-// import { FaAngleDoubleUp, FaAngleDoubleDown, FaThList} from 'react-icons/fa';
-// import DeleteButton from '../components/buttons/DeleteButton';
 import NavbarNote from '../components/Navbar'
 import {EditorState, RichUtils} from 'draft-js';
 
 let moment = require('moment');
 let uniqid = require('uniqid');
-let randomWords = require('random-words');
-
 
 class App extends Component {
   state = {
     notes: [
-      {id: uniqid(), dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
+      {id: uniqid(), dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}, {id: uniqid(), dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}, {id: uniqid(), dateCreated: moment().format('L'), editorState: EditorState.createEmpty()}
     ],
     toggled:false,
     currentlySelectedIndex: 0,
-    editorState: EditorState.createEmpty()
+    newSelected: 0
   };
 
 
-
+  // focuses the editor for typing on app startup
+  componentDidMount = () => {
+    this.domEditor.focus()
+  };
+  
+  // focuses the editor on state change and also for highlighting the note in the noteslist
+  componentDidUpdate = () => {
+    this.allNotesRefreshed();
+    
+    document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
+    this.domEditor.focus()
+  };
 
 /*********************************************
  * DRAFT JS functions
  */
 
   // handles the state of the editor
-  onChange = (editorState) => {
-    // this.setState({editorState})
-    // let noteIndex = this.selectedNoteID__Helper(noteID);
+  onChange = (editorState, noteID) => {
+
+    // copying the single note that is going to be changed
     const copyNote = {
       ...this.state.notes[this.state.currentlySelectedIndex]
     };
 
+    // editorState is now equal to new editorState
     copyNote.editorState = editorState
+    // copy all of the notes in the array
     const copyNotes = [...this.state.notes];
 
+    // giving the new editorState into the the copy
     copyNotes[this.state.currentlySelectedIndex] = copyNote;
-    this.setState({ notes: copyNotes })
 
-  }
+    this.setState({ notes: copyNotes })
+  };
 
   makeBold() {
     this.onChange(RichUtils.toggleInlineStyle(
       this.state.editorState, 'BOLD'
     ));
-  }
+  };
 
+  // sets a ref to the editor for focusing it more easily
   setDomEditorRef = ref => {
     this.domEditor = ref
-  }
+  };
 
-  componentDidMount = () => {
-    this.domEditor.focus()
-  }
 
 /************************************************
 * HELPER FUNCTIONS
@@ -70,6 +73,7 @@ class App extends Component {
     let indexSelected = this.state.notes.findIndex(note => {
       return note.id === noteID;
     })
+    this.setState({newSelected: indexSelected})
     return indexSelected;
   };
   
@@ -78,11 +82,12 @@ class App extends Component {
     let itemsListNodes = document.querySelectorAll('.noteItem')
     let itemList = Array.from(itemsListNodes)
     itemList.forEach(cur => cur.style.backgroundColor = "#f8f9fa")
-  }
+  };
 
   // sets the state for currently selected note and also focuses it
   selectNoteForInput = (noteID) => {
     let noteIndex = this.selectedNoteID__Helper(noteID);
+    
     this.setState({
       currentlySelectedIndex: noteIndex
     })
@@ -90,7 +95,7 @@ class App extends Component {
     // focuses the currently selected
     document.querySelector(`.${this.state.notes[noteIndex].id}`).style.backgroundColor = '#dae0e5'
     console.log(noteID)
-  }
+  };
 
   // toggles the notelist from show to hide with add/remove class
   toggleClass = (e) => {
@@ -102,7 +107,7 @@ class App extends Component {
       document.getElementById('wrapper').classList.add('toggled')
       this.setState({toggled: true})
     }
-  }
+  };
 
 /************************************************
  * App functions
@@ -124,35 +129,7 @@ class App extends Component {
     this.setState({
       currentlySelectedIndex: this.state.notes.length
     })
-
-    // didUpdate was needed to get the currently updated selected note
-    // this.componentDidUpdate = () => {
-    //   this.allNotesRefreshed();
-    //   document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
-    //   this.domEditor.focus()
-    // }
   };
-
-  componentDidUpdate = () => {
-    this.allNotesRefreshed();
-    document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
-    this.domEditor.focus()
-  }
-
-  // edit a note and saving to state onchange
-  changeNote = (event, noteID) => {
-    let noteIndex = this.selectedNoteID__Helper(noteID);
-    const copyNote = {
-      ...this.state.notes[noteIndex]
-    };
-
-    copyNote.note = event.target.value;
-    const copyNotes = [...this.state.notes];
-
-    copyNotes[noteIndex] = copyNote;
-    this.setState({ notes: copyNotes })
-  };
-
 
   // deletes a note off the noteslist
   deleteNoteFromList = (noteID) => {
@@ -162,16 +139,16 @@ class App extends Component {
 
     // if the first note is clicked and the length of notes is > 1
     // then delete the note and make the next note under it the first.
-    if (noteIndex == 0 && notesLength > 1) {
+    if (noteIndex === 0 && notesLength > 1) {
       copyNotes.splice(noteIndex, 1);
       this.setState({ notes: copyNotes });
       this.setState({ currentlySelectedIndex: 0})
 
     // if it is the last remaining note then clear the note and apply new date created and id
-    } else if (noteIndex == 0) {
+    } else if (noteIndex === 0) {
       this.setState({ notes: [{id: uniqid(), editorState: EditorState.createEmpty(), dateCreated: moment().format('L')}]})
       this.setState({ currentlySelectedIndex: 0})
-    //if it is not the first note then just delete note targeted and set the next targeted note as the one above.
+    // if it is not the first note then just delete note targeted and set the next targeted note as the one above.
     } else {
       copyNotes.splice(noteIndex, 1);
       this.setState({ notes: copyNotes });
@@ -182,40 +159,22 @@ class App extends Component {
 
 
   render() {
-    // state.notes[currentlySelectedIndex]
-    // console.log(this.state.notes.length)
-    console.log('selected ',this.state.currentlySelectedIndex)
-    console.log(this.state)
-    // console.log(this.state.notes[0].editorState)
-    // console.log(this.state.editorState)
-    // console.log(this.state.notes[this.state.currentlySelectedIndex])
-    // console.log(this.state)
-    // console.log('notes ', this.state.notes)
-    // console.log(this.state.editorState)
 
     return (
       <div className="App">
         <NavbarNote 
           changed={this.selectNoteForInput}
-          changeNote={this.changeNote}
           clickDelete={this.deleteNoteFromList}
           clickShowHideList={this.isNoteListShowing}
           clickAddNote={this.addNewNote}
           notes={this.state.notes}
           currentlySelected={this.state.currentlySelectedIndex}
-          changeNote={(event) => this.changeNote(event, this.state.notes[this.state.currentlySelectedIndex].id)} 
-          relatedNote={this.state.notes[this.state.currentlySelectedIndex].note}
         
           toggled={this.toggleClass}
 
           editorState={this.state.notes[this.state.currentlySelectedIndex].editorState}
           onChange={this.onChange}
           editorRef={this.setDomEditorRef}
-          
-          // editorState={this.state.notes[this.state.currentlySelectedIndex].editorState} 
-          // editorState2={this.state.editorState} 
-          // onChange={(editorState) => {this.onChange(editorState)}}
-          // placeholder="this is an editor"
           />
       </div>
     );

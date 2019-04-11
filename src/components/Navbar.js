@@ -7,11 +7,8 @@ import AddNoteButton from './buttons/AddNoteButton'
 //bootstrap components
 import {Container, Row, Col, Navbar, Nav, NavDropdown }from 'react-bootstrap';
 //icon components
-import { MdNoteAdd, MdReorder, MdRemove, MdDeleteForever } from 'react-icons/md';
-import { TiDocumentAdd, TiThMenu } from 'react-icons/ti';
-import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
+import { TiThMenu } from 'react-icons/ti';
 
-import NoteInput from './NoteInput';
 
 
 const navbarNote = (props) => {
@@ -21,7 +18,10 @@ const navbarNote = (props) => {
       {/* *****************************************************************
       The noteslist section */}
       <div className="bg-light border-right" id="sidebar-wrapper">
-        <AddNoteButton clickAddNote={props.clickAddNote}/>
+        <AddNoteButton 
+        clickAddNote={props.clickAddNote}
+        notes={props.notes}
+        currentlySelected={props.currentlySelected}/>
         <div className="noteslist">
           <div className="list-group list-group-flush">
             <NoteList
@@ -29,11 +29,8 @@ const navbarNote = (props) => {
               clickShowHideList={props.clickShowHideList}
               clickAddNote={props.clickAddNote}
               changed={props.changed}
-              changeNote={props.changeNote}
               notes={props.notes}
-              currentlySelected={props.currentlySelected}
-              toggled={props.toggled}
-              shorten={props.shorten}/>
+              currentlySelected={props.currentlySelected}/>
           </div>
         </div>
       </div>
@@ -51,8 +48,9 @@ const navbarNote = (props) => {
         </button>
 
         <DeleteButton 
-          className={'test'} 
-          clickDelete={() => props.clickDelete(props.notes[props.currentlySelected].id)}/>
+          clickDelete={() => props.clickDelete(props.notes[props.currentlySelected].id)}
+          notes={props.notes}
+          currentlySelected={props.currentlySelected}/>
         
         <button 
           className="navbar-toggler" 
@@ -90,29 +88,11 @@ const navbarNote = (props) => {
 
         {/* *****************************************************************
         The note/input section with draftjs editor */}
-        <div className='testhere'>
-          {/* <div className="container-fluid test-scroll"> */}
-            {/* <NoteInput 
-              notes={props.notes} 
-              currentlySelected={props.currentlySelected} 
-              changeNote={props.changeNote} 
-              relatedNote={props.relatedNote}/> */}
-
-            <NoteEditor       
-              editorState={props.editorState} 
-              onChange={props.onChange}
-              editorRef={props.editorRef}
-              />
-              {/* <p>{convertToRaw(props.editorState.getCurrentContent()).blocks[0].text}</p> */}
-
-            {/* <Editor 
-            editorState={props.editorState2}
-            onChange={(editorState) => {props.onChange2(editorState)}}
-            placeholder={props.placeholder2}/>
-            <h1>{convertToRaw(props.notes[props.currentlySelected].editorState.getCurrentContent()).blocks[0].text}</h1> */}
-            {/* <h1>{convertToRaw(props.notes[1].editorState.getCurrentContent()).blocks[0].text}</h1> */}
-          {/* </div> */}
-        </div>
+        <NoteEditor       
+          editorState={props.editorState} 
+          onChange={props.onChange}
+          editorRef={props.editorRef}
+          />
       </div>
     </div>
   )

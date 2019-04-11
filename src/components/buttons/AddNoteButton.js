@@ -4,9 +4,9 @@ import { TiDocumentAdd } from 'react-icons/ti';
 
 const addNoteButton = (props) => {
   return (
-    <button className="sidebar-heading btn btn-primary" onClick={props.clickAddNote}>
+    <a href={`#${props.notes[props.currentlySelected].id}`} className="sidebar-heading btn btn-primary" onClick={props.clickAddNote}>
       <TiDocumentAdd/>
-    </button>
+    </a>
   )
 }
 

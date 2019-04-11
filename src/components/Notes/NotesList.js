@@ -1,5 +1,5 @@
 import React from 'react';
-import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
+import {convertToRaw} from 'draft-js';
 
 // The list of notes template
 const notesList = (props) => props.notes.map((note) => {
@@ -11,18 +11,16 @@ const notesList = (props) => props.notes.map((note) => {
     if (blockText.text.length > 0) {
       return blockText.text
     }
+      return blockText.text
   })
 
   // this is the title of the note that will display on the notelist. if empty it will simply display a '...'
   let titleForNote = ['...']
   // checks the mapped array and if it is not undefined than the first text block that isn't undefined and has text will be the title. it is pushed to the titleForNote array. also sets the length of the title with substring
   for (let i = 0; i < mapEditorStateBlocks.length; i++) {
-    // if (mapEditorStateBlocks[i].length <  1) {
-    //   titleForNote.push(`...`)
-    // }
-    if (mapEditorStateBlocks[i] != undefined) {
+    if (mapEditorStateBlocks[i] !== undefined) {
       titleForNote[0] = (`${mapEditorStateBlocks[i].trim().substring(0, 19)}...`)
-      {break;}
+      break;
     } 
   }
 
@@ -34,10 +32,8 @@ const notesList = (props) => props.notes.map((note) => {
           onClick={() => props.changed(note.id)} 
           id={note.id}
           className={`noteItem target-item list-group-item list-group-item-action ${note.id}`}>
-           {titleForNote} <p style={style}>{note.dateCreated}</p>
-        </button>
-        // convertToRaw(props.notes[props.currentlySelected].editorState.getCurrentContent()).blocks[0].text
-        
+           {titleForNote} <p style={style}>{note.dateCreated}</p>{note.id}
+        </button>        
   )
 })
 

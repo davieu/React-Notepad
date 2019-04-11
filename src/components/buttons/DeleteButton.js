@@ -5,9 +5,9 @@ import { FaTrash } from "react-icons/fa";
 
 const deleteButton = (props) => {
   return (
-    <button className={'btn btn-primary'}onClick={props.clickDelete}>
+    <a href={`#${props.notes[props.currentlySelected].id}`} className={'btn btn-primary'}onClick={props.clickDelete}>
       <FaTrash/>
-    </button>
+    </a>
   )
 }
 

@@ -1,63 +1,3 @@
-/* .App {
-  text-align: center;
-} */
-/* .title {
-  text-align: center;
-} */
-
-/* .noteInput {
-  height: 50em;
-  background-color: rgb(206, 216, 219);
-  border-bottom:red;
-  width: 100%;
-  overflow: scroll;
-}
-
-.noteInput::-webkit-scrollbar {
-  display:none !important;
-}
-
-.noteListBackground {
-  background-color: rgb(206, 216, 219)
-}
-
-.notesList {
-  overflow: scroll;
-  height: 50em;
-}
-
-.notesList::-webkit-scrollbar {
-  display:none !important;
-}
-
-.singleNoteList {
-  background-color: rgb(233, 241, 243);
-  border-top: .1em solid rgb(206, 216, 219);
-  padding-left: 1em;
-}
-
-.singleNoteList p{
-  margin-bottom:0;
-}
-
-.singleNoteList:hover {
-  background-color: rgb(206, 216, 219);
-}
-
-.singleNoteList:focus {
-  background-color: rgb(44, 169, 211);
-}
-
-.MuiInputBase-root-36 {
-  color: purple;
-}
-
-.alignCol {
-  padding: 0
-} */
-
-
-
 body {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -89,7 +29,6 @@ body {
 }
 
 .noteslist {
-  /* background-color: rgb(206, 216, 219); */
   overflow: scroll;
   height: 90vh;
 }
@@ -107,11 +46,6 @@ body {
 
 #sidebar-wrapper .sidebar-heading:focus {
   box-shadow:none;
-}
-
-
-.fontit {
-  padding:50px 20px 10px 20px;
 }
 
 #sidebar-wrapper .list-group {
@@ -142,27 +76,13 @@ body {
   }
 }
 
-/* .poop {
-  margin-left: 15rem;
-} */
-
-/* .test-scroll{ overflow:scroll;}
-.test{ overflow:scroll;} */
-
-.test-scroll { 
+.editor { 
   padding-top:30px;
   overflow:scroll;
   height:90vh;
 }
-.test-scroll::-webkit-scrollbar {
+.editor::-webkit-scrollbar {
   display:none !important;
-}
-/* .testhere {
-  overflow:scroll;
-  height: 90vh;
 }
 
-.testhere::-webkit-scrollbar {
-  display:none !important;
-} */
 
