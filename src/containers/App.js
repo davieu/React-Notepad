@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavbarNote from '../components/Navbar'
-import {EditorState, RichUtils} from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 
 let moment = require('moment');
 let uniqid = require('uniqid');
@@ -53,11 +53,15 @@ class App extends Component {
     this.setState({ notes: copyNotes })
   };
 
-  makeBold() {
+  makeBold = () => {
     this.onChange(RichUtils.toggleInlineStyle(
-      this.state.editorState, 'BOLD'
+      this.state.notes[this.state.currentlySelectedIndex].editorState, 'BOLD'
     ));
   };
+
+  toggleFontSize = fontSize => {
+    this.onChange(RichUtils.toggleBlockType(this.state.notes[this.state.currentlySelectedIndex].editorState, fontSize))
+  }
 
   // sets a ref to the editor for focusing it more easily
   setDomEditorRef = ref => {
@@ -159,7 +163,7 @@ class App extends Component {
 
 
   render() {
-
+    console.log(RichUtils)
     return (
       <div className="App">
         <NavbarNote 
@@ -175,6 +179,8 @@ class App extends Component {
           editorState={this.state.notes[this.state.currentlySelectedIndex].editorState}
           onChange={this.onChange}
           editorRef={this.setDomEditorRef}
+          makeBold={this.makeBold}
+          changeFont={this.toggleFontSize}
           />
       </div>
     );

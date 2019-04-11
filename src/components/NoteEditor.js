@@ -1,5 +1,5 @@
 import React from 'react'
-import { Editor } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 
 const NoteEditor = (props) => {
   return (

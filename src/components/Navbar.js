@@ -1,6 +1,8 @@
 import React from 'react';
 import NoteList from './Notes/NotesList'
 import NoteEditor from './NoteEditor'
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+
 //button comonents
 import DeleteButton from './buttons/DeleteButton';
 import AddNoteButton from './buttons/AddNoteButton'
@@ -88,6 +90,8 @@ const navbarNote = (props) => {
 
         {/* *****************************************************************
         The note/input section with draftjs editor */}
+        <button onClick={() => {props.makeBold();}}>BOLD</button>
+        <button onClick={e => props.changeFont('100px')}>100px</button>
         <NoteEditor       
           editorState={props.editorState} 
           onChange={props.onChange}
