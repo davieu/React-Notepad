@@ -59,6 +59,7 @@ class App extends Component {
     ));
   };
 
+  //toggle font test
   toggleFontSize = fontSize => {
     this.onChange(RichUtils.toggleBlockType(this.state.notes[this.state.currentlySelectedIndex].editorState, fontSize))
   }
