@@ -81,6 +81,14 @@ class App extends Component {
     this.setState({newSelected: indexSelected})
     return indexSelected;
   };
+
+  selectedFontID__Helper = (noteID) => {
+
+  };
+
+  selectedVOlor__Helper = (noteID) => {
+
+  };
   
   // refreshes all notes to unhighlighted/ unfocused
   allNotesRefreshed = () => {
