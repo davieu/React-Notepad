@@ -1,4 +1,4 @@
-React-Notes This is a practice project to do a clone for a notepad. Will eventually add backend and tools for editing.
+React-Notes This is a practice project to do a clone for a notepad. Will eventually add backend and tools for editing. test
 
 
 
