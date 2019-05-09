@@ -1,3 +1,7 @@
+React-Notes This is a practice project to do a clone for a notepad. Will eventually add backend and tools for editing.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

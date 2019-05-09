@@ -5,8 +5,12 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "bootstrap": "^4.3.1",
+    "compression": "^1.7.4",
     "draft-js": "^0.10.5",
+    "express": "^4.16.4",
     "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
     "random-words": "^1.1.0",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.6",
