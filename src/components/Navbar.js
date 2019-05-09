@@ -41,8 +41,9 @@ const navbarNote = (props) => {
       The navbar section */}
       <div id="page-content-wrapper" >
         <Nav className="navbar  navbar-light bg-light border-bottom">
-
-        <button 
+      
+      <div>
+      <button 
           onClick={props.toggled} 
           className="btn btn-primary" 
           id="menu-toggle">
@@ -53,8 +54,10 @@ const navbarNote = (props) => {
           clickDelete={() => props.clickDelete(props.notes[props.currentlySelected].id)}
           notes={props.notes}
           currentlySelected={props.currentlySelected}/>
+      </div>
+
         
-        <button 
+        {/* <button 
           className="navbar-toggler" 
           type="button" 
           data-toggle="collapse" 
@@ -63,9 +66,9 @@ const navbarNote = (props) => {
           aria-expanded="false" 
           aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </button> */}
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             <li className="nav-item active">
               <a className="nav-link">Home <span className="sr-only">(current)</span></a>
@@ -85,13 +88,13 @@ const navbarNote = (props) => {
               </div>
             </li>
           </ul>
-        </div>
+        </div> */}
         </Nav>
 
         {/* *****************************************************************
         The note/input section with draftjs editor */}
         <button onClick={() => {props.makeBold();}}>BOLD</button>
-        <button onClick={e => props.changeFont('100px')}>100px</button>
+        {/* <button onClick={e => props.changeFont('100px')}>100px</button> */}
         <NoteEditor       
           editorState={props.editorState} 
           onChange={props.onChange}

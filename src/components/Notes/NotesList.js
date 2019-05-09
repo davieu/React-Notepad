@@ -32,7 +32,7 @@ const notesList = (props) => props.notes.map((note) => {
           onClick={() => props.changed(note.id)} 
           id={note.id}
           className={`noteItem target-item list-group-item list-group-item-action ${note.id}`}>
-           {titleForNote} <p style={style}>{note.dateCreated}</p>{note.id}
+           {titleForNote} <p style={style}>{note.dateCreated}</p>Note ID:   {note.id}
         </button>        
   )
 })
