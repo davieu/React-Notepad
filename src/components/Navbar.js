@@ -92,9 +92,11 @@ const navbarNote = (props) => {
         </Nav>
 
         {/* *****************************************************************
+        
         The note/input section with draftjs editor */}
-        <button onClick={() => {props.makeBold();}}>BOLD</button>
+        {/* <button onClick={() => {props.makeBold();}}>BOLD</button> */}
         {/* <button onClick={e => props.changeFont('100px')}>100px</button> */}
+        <div className="toolbar">{props.buttons}</div>
         <NoteEditor       
           editorState={props.editorState} 
           onChange={props.onChange}

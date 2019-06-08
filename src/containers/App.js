@@ -23,12 +23,12 @@ class App extends Component {
   };
   
   // focuses the editor on state change and also for highlighting the note in the noteslist
-  componentDidUpdate = () => {
-    this.allNotesRefreshed();
+  // componentDidUpdate = () => {
+  //   this.allNotesRefreshed();
     
-    document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
-    this.domEditor.focus()
-  };
+  //   document.querySelector(`.${this.state.notes[this.state.currentlySelectedIndex].id}`).style.backgroundColor = '#dae0e5'
+  //   this.domEditor.focus()
+  // };
 
 /*********************************************
  * DRAFT JS functions
@@ -53,9 +53,15 @@ class App extends Component {
     this.setState({ notes: copyNotes })
   };
 
-  makeBold = () => {
+  // makeBold = () => {
+  //   this.onChange(RichUtils.toggleInlineStyle(
+  //     this.state.notes[this.state.currentlySelectedIndex].editorState, 'BOLD'
+  //   ));
+  // };
+
+  modifyStyle = (e) => {
     this.onChange(RichUtils.toggleInlineStyle(
-      this.state.notes[this.state.currentlySelectedIndex].editorState, 'BOLD'
+      this.state.notes[this.state.currentlySelectedIndex].editorState, e.target.name
     ));
   };
 
@@ -170,9 +176,19 @@ class App extends Component {
     } 
   };
 
+  /////////////////
+
+  ///////////////////////
+
 
   render() {
     console.log(RichUtils)
+////////////////////////
+    const styles = ['BOLD', 'ITALIC', 'UNDERLINE'];
+    const buttons = styles.map(style => {
+      return <button key={style} className={style} onClick={this.modifyStyle} name={style}>{style.substring(0,1)}</button>
+    });
+    ///////////////////////////
     return (
       <div className="App">
         <NavbarNote 
@@ -188,9 +204,12 @@ class App extends Component {
           editorState={this.state.notes[this.state.currentlySelectedIndex].editorState}
           onChange={this.onChange}
           editorRef={this.setDomEditorRef}
-          makeBold={this.makeBold}
+          // makeBold={this.makeBold}
           changeFont={this.toggleFontSize}
+          buttons={buttons}
           />
+          
+          
       </div>
     );
   }
