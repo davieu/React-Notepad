@@ -1,4 +1,17 @@
-React-Notes This is a practice project to do a clone for a notepad. Will eventually add backend and tools for editing. test
+React-Notes This is a practice project to do a clone for a notepad. Will eventually add backend and tools for editing. 
+
+There is a live version on my portfolio. https://davieu.github.io -----  https://react-notepad.herokuapp.com/
+
+To run locally git clone it then npm install afterwards. Then npm run start. This will start the app up. 
+
+TODO: redux, backend, login, more editing tools such as font colors, reformat the components 
+
+
+
+
+
+
+
 
 
 
