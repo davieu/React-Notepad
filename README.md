@@ -4,7 +4,7 @@ There is a live version on my portfolio. https://davieu.github.io -----  https:/
 
 To run locally git clone it then npm install afterwards. Then npm run start. This will start the app up. 
 
-TODO: redux, backend, login, more editing tools such as font colors, reformat the components 
+TODO: redux, backend, login, mongo or mysql, more editing tools such as font colors, reformat the components 
 
 
 
